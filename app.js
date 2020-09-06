@@ -41,4 +41,17 @@ app.post('/api/shorturl/new', (req, res) => {
     })
 })
 
+app.get('/api/shorturl/:identifier', (req, res) => {
+    var identifier = req.params.identifier;
+
+    var findUrl = Url.findById(identifier);
+    findUrl
+        .then((doc) => {
+            if(!doc) return res.sendStatus(404);
+
+            res.redirect('https://' + doc.url);  
+        })
+        .catch(err => console.log(err));
+})
+
 app.listen(port, console.log(`Listening on port ${port}`))
