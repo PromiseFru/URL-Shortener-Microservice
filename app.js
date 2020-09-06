@@ -34,9 +34,10 @@ app.post('/api/shorturl/new', (req, res) => {
         var createUrl = new Url({url: postUrl});
         createUrl
             .save()
-            .then(doc => console.log(doc))
+            .then((doc) => {
+                res.json({"original_url": doc.url, "short_url": doc._id});
+            })
             .catch(err => console.log(err));
-
     })
 })
 
